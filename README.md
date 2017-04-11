@@ -1,14 +1,14 @@
 # PUSHTestFCM
 [FireMonkey] FCM Push test project
 
-#### Подготовка
+### Подготовка
 прочтите внимательно статьи 
-http://blog.rzaripov.kz/2017/02/firebase-android-ios.html
-http://blog.rzaripov.kz/2017/02/firebase-android-ios-2.html
+* http://blog.rzaripov.kz/2017/02/firebase-android-ios.html
+* http://blog.rzaripov.kz/2017/02/firebase-android-ios-2.html
 
-#### Серверная часть
-Поместите папку `pushTest` к себе на сервер, в корень сайта
-настройте доступ к БД и параметры из консоли Firebase (файл `api.php`)
+### Серверная часть
+###### Поместите папку `pushTest` к себе на сервер, в корень сайта
+###### настройте доступ к БД и параметры из консоли Firebase (файл `api.php`)
 
 ```
 $config['db']['host'] = "расположение БД"; // localhost
@@ -19,8 +19,8 @@ $config['push']['server_key'] = "тут серверный ключ из кон�
 $config['app']['name'] = "название пакета приложения для IOS"; //com.embarcadero.PUSHTest
 ```
 
-#### Delphi/C++ Builder
-Измените процедуру регистрации`RegisterDevice` а именно укажите свой сервер в строке
+### Delphi/C++ Builder
+Измените процедуру регистрации `RegisterDevice` а именно укажите свой сервер в строке
 ```
 aHTTP.Get('http://ТУТ ВАШ СЕРВЕР/pushTest/api.php?method=saveToken&deviceID=' + FDeviceID + '&deviceToken=' +
           FDeviceToken + '&platform='{$IFDEF ANDROID} + 'ANDROID' {$ELSEIF defined(IOS)} + 'IOS' {$ENDIF});
