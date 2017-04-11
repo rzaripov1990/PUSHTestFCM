@@ -1,0 +1,79 @@
+object FormMain: TFormMain
+  Left = 0
+  Top = 0
+  ClientHeight = 480
+  ClientWidth = 320
+  Fill.Color = xFFEFEFEF
+  Fill.Kind = Solid
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 3
+  object rHeader: TRectangle
+    Align = Top
+    Fill.Color = xFF345B8A
+    Sides = []
+    Size.Width = 320.000000000000000000
+    Size.Height = 50.000000000000000000
+    Size.PlatformDefault = False
+    object lbTitle: TLabel
+      Align = Client
+      StyledSettings = [Family, Style]
+      Size.Width = 320.000000000000000000
+      Size.Height = 50.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 22.000000000000000000
+      TextSettings.FontColor = claWhite
+      TextSettings.HorzAlign = Center
+      TextSettings.WordWrap = False
+      Text = 'PUSH Test'
+    end
+  end
+  object Text1: TText
+    Align = Top
+    Margins.Top = 10.000000000000000000
+    Position.Y = 60.000000000000000000
+    Size.Width = 320.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    Text = #1058#1086#1082#1077#1085' '#1091#1089#1090#1088#1086#1081#1089#1090#1074#1072
+    TextSettings.Font.Size = 18.000000000000000000
+    object sbShare: TSpeedButton
+      Align = Right
+      IconTintColor = claBlack
+      Position.X = 272.000000000000000000
+      Size.Width = 48.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'actiontoolbutton'
+      Text = 'ShowShareSheetAction1'
+      OnClick = sbShareClick
+    end
+    object SpeedButton1: TSpeedButton
+      Align = Left
+      IconTintColor = claBlack
+      Size.Width = 48.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'refreshtoolbutton'
+      Text = 'SpeedButton1'
+      OnClick = SpeedButton1Click
+    end
+  end
+  object tToken: TText
+    Align = Top
+    AutoSize = True
+    Position.Y = 108.000000000000000000
+    Size.Width = 320.000000000000000000
+    Size.Height = 50.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object ActionList1: TActionList
+    Left = 144
+    Top = 224
+    object ShowShareSheetAction1: TShowShareSheetAction
+      Category = 'Media Library'
+    end
+  end
+end
