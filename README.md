@@ -1,4 +1,4 @@
-# PUSHTest
+# PUSHTestFCM
 [FireMonkey] FCM Push test project
 
 #### Подготовка
