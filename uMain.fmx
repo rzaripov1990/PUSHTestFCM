@@ -70,7 +70,7 @@ object FormMain: TFormMain
     Size.PlatformDefault = False
   end
   object ActionList1: TActionList
-    Left = 144
+    Left = 104
     Top = 224
     object ShowShareSheetAction1: TShowShareSheetAction
       Category = 'Media Library'

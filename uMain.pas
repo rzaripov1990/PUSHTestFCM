@@ -14,7 +14,8 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Controls.Presentation,
   FMX.StdCtrls, FMX.Objects, System.Actions, FMX.ActnList, FMX.StdActns, FMX.MediaLibrary.Actions,
-
+  System.JSON,
+  System.Notification,
   System.PushNotification
 {$IFDEF ANDROID}, FMX.PushNotification.Android{$ENDIF}
 {$IFDEF IOS}, FMX.PushNotification.IOS{$ENDIF};
@@ -63,17 +64,53 @@ uses
 const
   FAndroidServerKey = '63538920422';
 
+procedure ClearAllNotification;
+var
+  aNotificationCenter: TNotificationCenter;
+begin
+  aNotificationCenter := TNotificationCenter.Create(nil);
+  try
+    if aNotificationCenter.Supported then
+    begin
+      aNotificationCenter.ApplicationIconBadgeNumber := -1;
+      aNotificationCenter.CancelAll;
+    end;
+  finally
+    aNotificationCenter.DisposeOf;
+    aNotificationCenter := nil;
+  end;
+end;
+
 procedure TFormMain.FormCreate(Sender: TObject);
 begin
+  ClearAllNotification;
   PushServiceRegister;
 end;
 
 procedure TFormMain.OnReceiveNotificationEvent(Sender: TObject; const ANotification: TPushServiceNotification);
+const
+  FCMSignature = 'gcm.notification.body';
+  GCMSignature = 'message';
+  APNsSignature = 'alert';
 var
   aText: string;
+  aObj: TJSONValue;
 begin
   // это событие срабатывает при открытом приложении
-  aText := ANotification.DataObject.GetValue( {$IFDEF ANDROID} 'message' {$ELSE} 'alert' {$ENDIF}).Value;
+{$IFDEF ANDROID}
+  // устраняем ошибку с чтением текста уведомления,
+  // если уведомление отправлено из консоли firebase
+  // и не заполнены дополнительные поля (message, title)
+  aObj := ANotification.DataObject.GetValue(GCMSignature);
+  if aObj <> nil then
+    aText := aObj.Value
+  else
+    aText := ANotification.DataObject.GetValue(FCMSignature).Value;
+{$ELSE}
+  aObj := ANotification.DataObject.GetValue(APNsSignature);
+  if aObj <> nil then
+    aText := aObj.Value;
+{$ENDIF}
   ShowMessage(aText);
 end;
 
