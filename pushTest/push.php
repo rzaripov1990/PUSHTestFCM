@@ -78,15 +78,19 @@ function pushSend($title, $text, $tokens, $server_key) {
 }
 
 function pushSendOver1000($title, $text, $tokens, $server_key) {
+	$GlobalResult = true;
+	$PacketResult = false;
 	$Count_Success = 0;
 	$DeviceCountMax = 1000;
 	$DeviceCountIndex = 0; 
 	$DevicesTokenPacketArray = array();	
 	while ($DeviceCountIndex<=count($tokens)) {
 		$DevicesTokenPacketArray = array_slice($tokens, $DeviceCountIndex, $DeviceCountMax);
-		pushSend($title, $text, $DevicesTokenPacketArray, $server_key);
+		$PacketResult = pushSend($title, $text, $DevicesTokenPacketArray, $server_key);
+		if ($PacketResult != true) $GlobalResult = false;
 		$DeviceCountIndex = $DeviceCountIndex + $DeviceCountMax;			
 	}	
+	return $GlobalResult;
 }
 
 ?>
