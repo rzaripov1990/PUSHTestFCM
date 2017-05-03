@@ -78,7 +78,7 @@ if ($method == "saveToken") {
 	# нужно будет разделить на несколько этапов
 	
 	# отправляем пуши в FCM
-    if (pushSend($title, $text, $fcm_tokens, $config['push']['server_key'] ) === false)
+    if (pushSendOver1000($title, $text, $fcm_tokens, $config['push']['server_key'] ) === false)
 		msgErr("Пуши не отправлены");
 	else
 		msgOK();
